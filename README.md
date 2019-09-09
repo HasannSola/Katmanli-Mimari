@@ -13,9 +13,16 @@
 9-Loglama<br/>
 10-Exception Handling<br/>
 11-DI (Dependency Injection)<br/>
-12-SOLID prensiplerine göre kodlama
-13-unit Test(TDD)
-14-
+12-SOLID prensiplerine göre kodlama<br/>
+13-unit Test(TDD)<br/>
+14-MVC <br/>
+15-AngularJd <br/>
+16-DevExtreme<br/>
+17-Unit Of Work Design Pattern<br/>
+18-ASP.NET Core Identity<br/>
+19-Redis<br/>
+20-Docker<br/>
+
 
 <br/>
 
