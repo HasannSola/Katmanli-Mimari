@@ -1,4 +1,4 @@
-# Katmanl-Mimari
+# Katmanli-Mimari
 
 *Katmanlı Mimari Projemizde(LAP-Layered Architectural Project ) genelde kullanılacak teknolojiler:
 1-Katmanlar Entities-Dal-Bll-UI(mvc)-servis(Api)-Core(AOP uygulamayı dikene kesen yapılar)
