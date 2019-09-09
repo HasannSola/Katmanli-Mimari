@@ -4,4 +4,11 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Log\" />
+    <Folder Include="Attributes\" />
+    <Folder Include="Enum\" />
+    <Folder Include="ExceptionHandling\" />
+  </ItemGroup>
+
 </Project>
