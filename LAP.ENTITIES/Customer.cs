@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LAP.ENTITIES
 {
-   public class Customer
+   public class Customer: BaseEntity
     {
         [Key]
         public int InCustomerId { get; set; }

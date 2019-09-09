@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="Log\" />
     <Folder Include="Attributes\" />
-    <Folder Include="Enum\" />
     <Folder Include="ExceptionHandling\" />
   </ItemGroup>
 

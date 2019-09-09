@@ -6,7 +6,7 @@ using System.Text;
 
 namespace LAP.ENTITIES
 {
-   public class Order
+   public class Order: BaseEntity
     {
         [Key]
         public int InOrderId { get; set; }
