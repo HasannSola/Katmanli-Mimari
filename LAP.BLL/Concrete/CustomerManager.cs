@@ -27,5 +27,17 @@ namespace LAP.BLL.Concrete
             entity.DtUpdateTime = DateTime.Now;
             return base.UpdateAsync(entity);
         }
+        public override CResult<Customer> Add(Customer entity)
+        {
+            entity.InStatus = (int)StatusInfo.Active;
+            entity.DtCreateTime = DateTime.Now;
+            return base.Add(entity);
+        }
+        public override Task<CResult<Customer>> AddAsync(Customer entity)
+        {
+            entity.InStatus = (int)StatusInfo.Active;
+            entity.DtCreateTime = DateTime.Now;
+            return base.AddAsync(entity);
+        }
     }
 }

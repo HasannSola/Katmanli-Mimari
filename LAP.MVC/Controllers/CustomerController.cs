@@ -64,7 +64,10 @@ namespace LAP.MVC.Controllers
             CResult<Customer> result = new CResult<Customer>();
             if (ModelState.IsValid)
             {
-               result = _customerManager.Update(customer);
+                if (customer.InCustomerId > 0)
+                    result = _customerManager.Update(customer);
+                else
+                    result = _customerManager.Add(customer);
             }
             else
             {
