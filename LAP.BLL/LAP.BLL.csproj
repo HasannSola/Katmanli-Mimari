@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LAP.CORE\LAP.CORE.csproj" />
     <ProjectReference Include="..\LAP.DAL\LAP.DAL.csproj" />
     <ProjectReference Include="..\LAP.ENTITIES\LAP.ENTITIES.csproj" />
   </ItemGroup>

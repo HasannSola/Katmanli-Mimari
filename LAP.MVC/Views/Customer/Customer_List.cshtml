@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Müşteri Listesi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div ng-app="AppModule" data-ng-controller="customerCtrl">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="dx-viewport demo-container" style="    padding: 15px 5px 20px 5px;">
+            <div id="gridCustomerList"></div>
+        </div>
+    </div>
+
+    <!-- Model UpdateCreate-->
+    <div class="modal inmodal fade" id="modalCustomer" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Kapat</span></button>
+                    <p class="text-center">Müşteri Güncelle</p>
+                </div>
+                <div class="modal-body">
+                    <form id="customerFormId" method="post">
+                        <input type="hidden" name="InCustomerId" value="0" />
+                        <fieldset class="form-horizontal">
+                            <div class="row">
+                                <div class="col col-md-7">
+                                    <div class="form-group">
+                                        <label class=" control-label pb-3">Müşteri Adı</label>
+                                        <span class="spanText">ör:Ali ltd. şti.</span>
+                                        <input type="text" class="form-control" placeholder="" name="StName" value="">
+                                    </div>
+                                </div>
+                                <div class="col col-md-1"></div>
+                                <div class="col col-md-4">
+                                    <div class="form-group">
+                                        <label class=" control-label pb-3">Müşteri Bakiyesi</label>
+                                        <span class="spanText">ör:10.000TL</span>
+                                        <input type="text" class="form-control" placeholder="" name="FlBalance" value="0" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-md-12">
+                                    <div class="form-group">
+                                        <label class=" control-label pb-3">Açıklama</label>
+                                        <span class="spanText">...</span>
+                                        <textarea class="form-control" rows="3" name="StDescription"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <button type="button" class="pull-right btn btn-w-m btn-primary" id="customerCreateModel">Kaydet</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!---Model Delete-->
+    <div class="modal inmodal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">X</span></button>
+                    <h4 class="modal-title">Dikkat!!!</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">
+                        <strong id="DeleteModMes"></strong>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Kapat</button>
+                    <button type="button" class="btn btn-primary" id="DeleteModel" delete-model-id="">Sil</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<environment include="Development">
+    <script src="~/js/angular.js"></script>
+    <script src="~/Angular/Controller/customerController.js"></script>
+    <script src="~/Angular/Servis/coreService.js"></script>
+    <script src="~/Angular/Servis/helperService.js"></script>
+</environment>
+<environment exclude="Development">
+    <script src="~/js/angular.min.js"></script>
+    <script src="~/Angular/Controller/customerController.js"></script>
+    <script src="~/Angular/Servis/coreService.js"></script>
+    <script src="~/Angular/Servis/helperService.js"></script>
+</environment>

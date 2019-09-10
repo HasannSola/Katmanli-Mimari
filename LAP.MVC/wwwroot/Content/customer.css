@@ -1,0 +1,63 @@
+﻿#gridContainer {
+    height: 440px;
+}
+
+.options {
+    padding: 20px;
+    margin-top: 20px;
+    background-color: rgba(191, 191, 191, 0.15);
+}
+
+.caption {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.option {
+    margin-top: 10px;
+}
+
+    .option > span {
+        margin-right: 10px;
+    }
+
+    .option > .dx-selectbox {
+        display: inline-block;
+        vertical-align: middle;
+    }
+.oldOrder {
+    color: #AAAAAA;
+}
+
+.highAmountOrder_saleAmount {
+    background-color: #ed5666 !important;
+    color: #000000;
+}
+
+.highAmountOrder_employee {
+    font-weight: bold;
+}
+.table_orderColor {
+    /*background-color: #2f40502b;*/
+    border-top: 1px solid #d1c8c8 !important;
+}
+#side-menu {
+    background-color: #2f4050 !important;
+}
+.dx-datagrid-rowsview .dx-row {
+    border-top: 1px solid #d6cdcd;
+    border-bottom: 1px solid #d6cdcd;
+}
+
+.dx-scrollable-scroll-content {
+    background-color: #333 !important;
+}
+
+/* CIRCLE */
+.img-circle {
+    border-radius: 25%;
+}
+
+#page-wrapper{
+ min-height:100vh !important;
+}

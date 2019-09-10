@@ -24,7 +24,9 @@ namespace LAP.DAL.Concrete
         {
             try
             {
-                dbSet.Remove(Get(Id));
+                var item = Get(Id);
+                _context.Entry(item).State = EntityState.Modified;
+                dbSet.Remove(item);
                 _context.SaveChanges();
                 return new CResult<string>() { Succeeded = true, Desc = "Silme işlemi başarılı." };
             }
