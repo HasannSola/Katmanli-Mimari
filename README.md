@@ -25,6 +25,13 @@
 
 
 <br/>
+ *** Asp.net Core en az Version="2.2.0" olmalı. öğrenmek içi CMD aç  "dotnet --version " komutunu yaz.<br/>
+ dotnet version 2.2.0 düşükse yada dotnet komutu çalışmıyorsa SDK yı aşağıdaki linkden indir.<br/>
+ https://github.com/dotnet/core/blob/master/release-notes/2.2/2.2.7/2.2.7-download.md buradaki linkden uygun SDK yı indirebilirsiniz.<br/>
+ <br/>
+ 
+ *** Projeyi indir , Visual Studio da açtıktan sonra "LAP.MVC" seçili proje yap (Set as StartUp Project ),<br/>
+ onra "Package Manager Console" aç, Default project olarak  "LAP.DAL" seç <br/>
+ console  "Update-Database " komutunu  yaz enter ,  LocalDb veritabanı create edilecek.
+ 
 
-Projeyi indir , Visual Studio da açtıktan sonra LAP.MVC seçili proje olacak (Set as StartUp Project ) daha sonra Package Manager Console
-Default project LAP.DAL olacak şekilde **  Update-Database ** yazıp enter basarak LocalDb  create edilecek.
