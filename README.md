@@ -34,6 +34,11 @@
  
  *** Projeyi indir , Visual Studio da açtıktan sonra "LAP.MVC" seçili proje yap (Set as StartUp Project ),<br/>
  onra "Package Manager Console" aç, Default project olarak  "LAP.DAL" seç <br/>
- console  "Update-Database " komutunu  yaz enter ,  LocalDb veritabanı create edilecek.
+ console  "Update-Database " komutunu  yaz enter ,  LocalDb veritabanı create edilecek.<br/>
+ <br/>
  
+ ***Api katmanında istekte yapmak içi Vs çalıştırmadan(IIS olmadan) yapmak için, CMD aç ve aşağıdai komutları yaz. (.Net Core CLI). Projedeki dll yolunu yaz.<br/>
+    dotnet "C:\Users\hasan\source\repos\LAP\LAP.API\bin\Debug\netcoreapp2.2\LAP.API.dll"<br/>
+ komutunu yazdıktan sonra POSTMAN gibi programlar ile  http://localhost:5000/api/customer istek yaptığında tüm müşteri listesi gelecek<br/>
+ <br/>
 
