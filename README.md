@@ -22,6 +22,8 @@
 18-ASP.NET Core Identity<br/>
 19-Redis<br/>
 20-Docker<br/>
+21-Bundler ve Minifier ile cs ve js dosyaları<br/>
+22-Swagger ile Apileri test etme<br/>
 
 
 <br/>
