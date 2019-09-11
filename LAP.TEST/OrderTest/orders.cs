@@ -18,9 +18,8 @@ namespace LAP.TEST.OrderTest
         private ICustomerManager _CustomerManager;
         public orders()
         {
-            _context = new LapContext();
-            _OrderManager = new OrderManager(new Repository<Order>(_context));
-            _CustomerManager = new CustomerManager(new Repository<Customer>(_context));
+            _OrderManager = new OrderManager(new Repository<Order>());
+            _CustomerManager = new CustomerManager(new Repository<Customer>());
         }
 
         [Fact]

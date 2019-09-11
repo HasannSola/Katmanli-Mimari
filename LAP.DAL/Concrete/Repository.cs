@@ -5,43 +5,44 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace LAP.DAL.Concrete
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private LapContext _context = null;
-        private DbSet<T> dbSet;
-        public Repository(LapContext context)
+        private LapContext _context { get; set; }
+        public Repository()
         {
-            _context = context;
-            dbSet = _context.Set<T>();
+
         }
-       
+
         public CResult<string> Delete(object Id)
         {
             try
             {
-                var item = Get(Id);
-                _context.Entry(item).State = EntityState.Modified;
-                dbSet.Remove(item);
-                _context.SaveChanges();
-                return new CResult<string>() { Succeeded = true, Desc = "Silme işlemi başarılı." };
+                using (_context = new LapContext())
+                {
+                    var item = _context.Set<T>().Find(Id); ;
+                    _context.Set<T>().Remove(item);
+                    _context.SaveChanges();
+                    return new CResult<string>() { Succeeded = true, Desc = "Silme işlemi başarılı." };
+                }
             }
             catch (Exception ex)
             {
                 return new CResult<string>() { Succeeded = false, Desc = ex.Message.ToString() };
             }
-
         }
-   
+
         public T Get(object Id)
         {
             try
             {
-                return dbSet.Find(Id);
+                using (_context = new LapContext())
+                {
+                    return _context.Set<T>().Find(Id);
+                }
             }
             catch (Exception ex)
             {
@@ -49,42 +50,50 @@ namespace LAP.DAL.Concrete
             }
         }
 
-        public IQueryable<T> GetAll(Expression<Func<T, bool>> expression)
+        public List<T> GetAll(Expression<Func<T, bool>> expression)
         {
             try
             {
-                if (expression == null)
+                using (_context = new LapContext())
                 {
-                    return dbSet;
+                    if (expression == null)
+                    {
+                        return _context.Set<T>().ToList();
+                    }
+                    return _context.Set<T>().Where(expression).ToList();
                 }
-                return dbSet.Where(expression);
-
             }
             catch (Exception ex)
             {
                 throw new Exception("Repository.GetAll ; Repository", ex);
             }
         }
+
         public T Get(Expression<Func<T, bool>> expression)
         {
             try
             {
-                return dbSet.FirstOrDefault(expression);
-
+                using (_context = new LapContext())
+                {
+                    return _context.Set<T>().FirstOrDefault(expression);
+                }
             }
             catch (Exception ex)
             {
                 throw new Exception("Repository.GetAll ; Repository", ex);
             }
         }
-   
+
         public CResult<T> Add(T obj)
         {
             try
             {
-                dbSet.Add(obj);
-                _context.SaveChanges();
-                return new CResult<T>() { Object = obj, Succeeded = true, Desc = "Kayıt işlemi başarılı." };
+                using (_context = new LapContext())
+                {
+                    _context.Set<T>().Add(obj);
+                    _context.SaveChanges();
+                    return new CResult<T>() { Object = obj, Succeeded = true, Desc = "Kayıt işlemi başarılı." };
+                }
             }
             catch (Exception ex)
             {
@@ -97,9 +106,12 @@ namespace LAP.DAL.Concrete
         {
             try
             {
-                dbSet.Add(obj);
-                await _context.SaveChangesAsync();
-                return new CResult<T>() { Object = obj, Succeeded = true, Desc = "Kayıt işlemi başarılı." };
+                using (_context = new LapContext())
+                {
+                    await _context.Set<T>().AddAsync(obj);
+                    await _context.SaveChangesAsync();
+                    return new CResult<T>() { Object = obj, Succeeded = true, Desc = "Kayıt işlemi başarılı." };
+                }
             }
             catch (Exception ex)
             {
@@ -111,118 +123,90 @@ namespace LAP.DAL.Concrete
         {
             try
             {
-                _context.Entry(obj).State = EntityState.Modified;
-                _context.SaveChanges();
-                return new CResult<T>() { Object = obj, Succeeded = true, Desc = "Güncelleme işlemi başarılı." };
-            }
-            catch (Exception ex)
-            {
-                return new CResult<T>() { Object = obj, Succeeded = false, Desc = ex.Message.ToString(), ex = ex };
-            }
-
-        }
-
-        public async Task<CResult<T>> UpdateAsync(T obj)
-        {
-            try
-            {
-                _context.Entry(obj).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-                return new CResult<T>() { Object = obj, Succeeded = true, Desc = "Güncelleme işlemi başarılı." };
-            }
-            catch (Exception ex)
-            {
-                return new CResult<T>() { Object = obj, Succeeded = false, Desc = ex.Message.ToString(), ex = ex };
-            }
-
-        }
- 
-        public virtual IQueryable<T> GetAllIncluding(params Expression<Func<T, object>>[] includeProperties)
-        {
-            try
-            {
-
-                IQueryable<T> query = dbSet;
-                foreach (var includeProperty in includeProperties)
+                using (_context = new LapContext())
                 {
-                    query = query.Include(includeProperty);
+                    _context.Entry(obj).State = EntityState.Modified;
+                    _context.SaveChanges();
+                    return new CResult<T>() { Object = obj, Succeeded = true, Desc = "Güncelleme işlemi başarılı." };
                 }
-                return query;
-                // return query.AsNoTracking();//, AsNoTracking kullanırsak yaptığımız select üzerinde herhangi bir update işlemi uygulayamıyoruz.
+            }
+            catch (Exception ex)
+            {
+                return new CResult<T>() { Object = obj, Succeeded = false, Desc = ex.Message.ToString(), ex = ex };
+            }
+        }
+
+        public virtual List<T> GetAllIncluding(params Expression<Func<T, object>>[] includeProperties)
+        {
+            try
+            {
+                using (_context = new LapContext())
+                {
+                    IQueryable<T> query = _context.Set<T>();
+                    foreach (var includeProperty in includeProperties)
+                    {
+                        query = query.Include(includeProperty);
+                    }
+                    return query.ToList();
+                    // return query.AsNoTracking();//, AsNoTracking kullanırsak yaptığımız select üzerinde herhangi bir update işlemi uygulayamıyoruz.
+                }
             }
             catch (Exception ex)
             {
                 throw new Exception("Repository.GetAllIncluding ; Repository", ex);
             }
-
         }
 
         public T GetIncluding(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] includeProperties)
         {
             try
             {
-                IQueryable<T> query = dbSet;
-                foreach (var includeProperty in includeProperties)
+                using (_context = new LapContext())
                 {
-                    query = query.Include(includeProperty);
+                    IQueryable<T> query = _context.Set<T>();
+                    foreach (var includeProperty in includeProperties)
+                    {
+                        query = query.Include(includeProperty);
+                    }
+                    return query.FirstOrDefault(expression);
                 }
-                // return query.AsNoTracking().FirstOrDefault(expression);//Bu kullanıldığında buradaki buradaki instance update edilmez
-                return query.FirstOrDefault(expression);
             }
             catch (Exception ex)
             {
                 throw new Exception("Repository.GetIncluding ; Repository", ex);
             }
         }
-   
 
-        public async Task<List<T>> GetAllIncludingAsync(params Expression<Func<T, object>>[] includeProperties)
+        public List<T> GetAllIncluding(params object[] includeProperties)
         {
             try
             {
-                IQueryable<T> query = dbSet;
-                foreach (var includeProperty in includeProperties)
+                using (_context = new LapContext())
                 {
-                    query = query.Include(includeProperty);
+                    IQueryable<T> query = _context.Set<T>();
+                    foreach (var includeProperty in includeProperties)
+                    {
+                        query = query.Include(includeProperty.ToString());
+                    }
+                    return query.ToList();
                 }
-                return await query.ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Repository.GetAllIncludingAsync ; Repository", ex);
-            }
-        }
-        public DbContext GetContext()
-        {
-            return _context;
-        }
-
-        public IQueryable<T> GetAllIncluding(params object[] includeProperties)
-        {
-            try
-            {
-                IQueryable<T> query = dbSet;
-                foreach (var includeProperty in includeProperties)
-                {
-                    query = query.Include(includeProperty.ToString());
-                }
-                // return query.AsNoTracking();
-                return query;
             }
             catch (Exception ex)
             {
                 throw new Exception("Repository.GetAllIncluding ; Repository", ex);
             }
-
         }
 
         public CResult<T> BulkInsert(List<T> obj)
         {
             try
             {
-                dbSet.AddRange(obj);
-                _context.SaveChangesAsync();
-                return new CResult<T>() { Object = null, Succeeded = true, Desc = "Kayıt işlemi başarılı." };
+                using (_context = new LapContext())
+                {
+                    _context.Set<T>().AddRange(obj);
+                    _context.SaveChangesAsync();
+                    return new CResult<T>() { Object = null, Succeeded = true, Desc = "Kayıt işlemi başarılı." };
+                }
             }
             catch (Exception ex)
             {

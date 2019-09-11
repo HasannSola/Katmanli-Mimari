@@ -14,9 +14,7 @@
                 formData.FlBalance = formData.FlBalance.replace("₺", "");
                 coreSrv.create(formData, '/musteri/kaydet').then(function (result) {
                     if (result.success) {
-                        if (formData.InCustomerId !== "0") {
-                            $("#modalCustomer").modal('hide');
-                        }
+                        $("#modalCustomer").modal('hide');
                         getAllList();
                     }
                 }, function (error) { });
@@ -47,7 +45,7 @@
                         },
                         columnChooser: {
                             enabled: true,
-                            mode: "select" 
+                            mode: "select"
                         },
                         paging: {
                             pageSize: 10
@@ -164,7 +162,7 @@
                                 }
                             }]
                         },
-                        onCellPrepared: e => {},
+                        onCellPrepared: e => { },
                         onExporting: e => { }
                     }).dxDataGrid('instance');
                 });

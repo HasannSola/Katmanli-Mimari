@@ -17,8 +17,7 @@ namespace LAP.TEST.CustomerTests
         private ICustomerManager _CustomerManager;
         public customers()
         {
-            _context = new LapContext();
-            _CustomerManager = new CustomerManager(new Repository<Customer>(_context));
+            _CustomerManager = new CustomerManager(new Repository<Customer>());
         }
 
         [Fact]

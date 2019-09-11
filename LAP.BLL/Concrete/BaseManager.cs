@@ -51,24 +51,19 @@ namespace LAP.BLL.Concrete
             return _genericDal.Get(expression);
         }
 
-        public virtual IQueryable<T> GetAll(Expression<Func<T, bool>> expression)
+        public virtual List<T> GetAll(Expression<Func<T, bool>> expression)
         {
             return _genericDal.GetAll(expression);
         }
 
-        public virtual IQueryable<T> GetAllIncluding(params Expression<Func<T, object>>[] includeProperties)
+        public virtual List<T> GetAllIncluding(params Expression<Func<T, object>>[] includeProperties)
         {
             return _genericDal.GetAllIncluding(includeProperties);
         }
 
-        public virtual IQueryable<T> GetAllIncluding(params object[] includeProperties)
+        public virtual List<T> GetAllIncluding(params object[] includeProperties)
         {
             return _genericDal.GetAllIncluding(includeProperties);
-        }
-
-        public virtual async Task<List<T>> GetAllIncludingAsync(params Expression<Func<T, object>>[] includeProperties)
-        {
-            return await _genericDal.GetAllIncludingAsync(includeProperties);
         }
 
         public T GetIncluding(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] includeProperties)
@@ -85,11 +80,5 @@ namespace LAP.BLL.Concrete
         {
             return _genericDal.Update(entity);
         }
-
-        public virtual async Task<CResult<T>> UpdateAsync(T entity)
-        {
-            return await _genericDal.UpdateAsync(entity);
-        }
-
     }
 }

@@ -21,12 +21,7 @@ namespace LAP.BLL.Concrete
             entity.DtUpdateTime = DateTime.Now;
             return base.Update(entity); 
         }
-        public override Task<CResult<Customer>> UpdateAsync(Customer entity)
-        {
-            entity.InStatus = (int)StatusInfo.Active;
-            entity.DtUpdateTime = DateTime.Now;
-            return base.UpdateAsync(entity);
-        }
+   
         public override CResult<Customer> Add(Customer entity)
         {
             entity.InStatus = (int)StatusInfo.Active;

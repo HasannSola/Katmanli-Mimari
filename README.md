@@ -16,7 +16,7 @@
 12-SOLID prensiplerine göre kodlama<br/>
 13-unit Test(TDD)<br/>
 14-MVC <br/>
-15-AngularJd <br/>
+15-AngularJs <br/>
 16-DevExtreme<br/>
 17-Unit Of Work Design Pattern<br/>
 18-ASP.NET Core Identity<br/>

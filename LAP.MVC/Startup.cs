@@ -28,9 +28,7 @@ namespace LAP.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            //services.AddRouting();
-            LapContext _context = new LapContext();
-            services.AddSingleton<ICustomerManager>(c => new CustomerManager(new Repository<Customer>(_context)));
+            services.AddSingleton<ICustomerManager>(c => new CustomerManager(new Repository<Customer>()));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
