@@ -32,11 +32,16 @@ namespace LAP.API.Controllers
         // http://localhost:5000/api/customer/redis
         /// <summary>
         /// Redis cacheden customer listeyi getir.
+        /// Redis-cli dan  "keys *" komutunu kullanarak listeden görebiliriz.
         /// </summary>
         /// <returns></returns>
         [HttpGet("redis")]
         public ActionResult<List<Customer>> GetsWithRedis()
         {
+            byte[] bytes = default(byte[]);
+            HttpContext.Session.TryGetValue("UserFullName", out bytes);
+            string userFullName = Encoding.UTF8.GetString(bytes);
+
             List<Customer> customerList = _customerRedisManager.Get<List<Customer>>("customers");
             return customerList;
         }
@@ -49,20 +54,19 @@ namespace LAP.API.Controllers
         }
 
         // http://localhost:5000/api/customer
-        //HEADERS alanına  Key = Content-Type ,Value=  application/json
+        //Body  alanına  Key = Content-Type ,Value=  application/json
         //BODY alanın {InCustomerId: "0", StName: "HaSAN SOLA", FlBalance: 10, StDescription:"TEST"}
         [HttpPost]
         public ActionResult<int> Post([FromBody] Customer entity)
         {
-            //Sessionlar daki değerler RedisCache de okunabilir
-            var bytes = Encoding.UTF8.GetBytes("hasan");
-            HttpContext.Session.Set("UserName", bytes);
+            //session a kaydet 
+            byte[] bytes = Encoding.UTF8.GetBytes("Hasan SOLA");
+            HttpContext.Session.Set("UserFullName", bytes);
 
-            var bytes2 = Encoding.UTF8.GetBytes("sola");
-            HttpContext.Session.Set("UserID", bytes2);
-
+            //Redis cache e kaydet.
             _customerRedisManager.Set("customers", entity, 60);
 
+            //Sql server a kaydet.
             CResult<Customer> result = _customerManager.Add(entity);
             return result.Object == null ? 0 : result.Object.InCustomerId;
         }
@@ -78,9 +82,6 @@ namespace LAP.API.Controllers
         [HttpDelete("{id}")]
         public ActionResult<string> Delete(int id)
         {
-
-         
-
             CResult<string> result = _customerManager.Delete(id);
             return result.Desc;
         }
