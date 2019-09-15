@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using LAP.BLL.Abstract;
 using LAP.BLL.Concrete;
 using LAP.DAL.Concrete;
+using LAP.DAL.Redis;
 using LAP.ENTITIES;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,8 +29,28 @@ namespace LAP.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDistributedRedisCache(options =>
+            //{
+            //    options.InstanceName = "Blog";
+            //    options.Configuration = "127.0.0.1";
+            //    //options.Configuration = "localhost";             
+            //});
+            services.AddDistributedRedisCache(option =>
+            {
+                option.Configuration = "127.0.0.1:6379";//"localhost";
+                option.InstanceName = "mks";
+            });
+            services.AddSession(options =>
+            {
+                // 10 dakikalı Redis Timeout Süresi.
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.CookieHttpOnly = true;
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSingleton<ICustomerManager>(c => new CustomerManager(new Repository<Customer>()));
+            services.AddSingleton<IRedisContext<Customer>>(c => new RedisContext<Customer>());
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -44,6 +65,7 @@ namespace LAP.API
             }
 
             app.UseHttpsRedirection();
+            app.UseSession();
             app.UseMvc();
         }
     }
