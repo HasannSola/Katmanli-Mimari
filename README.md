@@ -37,8 +37,14 @@
  console  "Update-Database " komutunu  yaz enter ,  LocalDb veritabanı create edilecek.<br/>
  <br/>
  
- ***Api katmanında istekte yapmak içi Vs çalıştırmadan(IIS olmadan) yapmak için, CMD aç ve aşağıdai komutları yaz. (.Net Core CLI). Projedeki dll yolunu yaz.<br/>
+ ***Api katmanına istekte bulunmak içi Vs çalıştırmadan(IIS olmadan), CMD aç ve aşağıdai komutları yaz. (.Net Core CLI). Projedeki dll yolunu yaz.<br/>
     dotnet "C:\Users\hasan\source\repos\LAP\LAP.API\bin\Debug\netcoreapp2.2\LAP.API.dll"<br/>
  komutunu yazdıktan sonra POSTMAN gibi programlar ile  http://localhost:5000/api/customer istek yaptığında tüm müşteri listesi gelecek<br/>
  <br/>
+ 
+ ***Api de Redis kullanmak için LAP.CORE katmanın "Redis-Lib-3.2.100" klasöründeki ilk önce "redis-server.exe" sonra "redis-cli.exe" çalıştırarak Redis cache aktif olur.<br/>
+    Api normal veri eklerken (Post methodu) , redis server a kayıt atar.<br/>
+	Redisten verileri almak için "GetsWithRedis()" methodunu kullanılır. Çağırmak içinde  "http://localhost:5000/api/customer/redis" url kullanılır.
+	
+     
 
