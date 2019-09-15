@@ -24,7 +24,7 @@
 20-Docker<br/>
 21-Bundler ve Minifier ile cs ve js dosyaları<br/>
 22-Swagger ile Apileri test etme<br/>
-
+23-ORM(Ef,Dapper)
 
 <br/>
  *** Asp.net Core en az Version="2.2.0" olmalı. öğrenmek içi CMD aç  "dotnet --version " komutunu yaz.<br/>
@@ -42,9 +42,7 @@
  komutunu yazdıktan sonra POSTMAN gibi programlar ile  http://localhost:5000/api/customer istek yaptığında tüm müşteri listesi gelecek<br/>
  <br/>
  
- ***Api de Redis kullanmak için LAP.CORE katmanın "Redis-Lib-3.2.100" klasöründeki ilk önce "redis-server.exe" sonra "redis-cli.exe" çalıştırarak Redis cache aktif olur.<br/>
-    Api normal veri eklerken (Post methodu) , redis server a kayıt atar.<br/>
-	Redisten verileri almak için "GetsWithRedis()" methodunu kullanılır. Çağırmak içinde  "http://localhost:5000/api/customer/redis" url kullanılır.
+ ***Api de Redis kullanmak için LAP.CORE katmanın "Redis-Lib-3.2.100" klasöründeki ilk önce "redis-server.exe" sonra "redis-cli.exe" çalıştırarak Redis cache aktif olur. Api normal veri eklerken (Post methodu) , redis server a kayıt atar. Redisten verileri almak için "GetsWithRedis()" methodunu kullanılır. Çağırmak içinde  "http://localhost:5000/api/customer/redis" url kullanılır.
 	
      
 
