@@ -1,10 +1,13 @@
-﻿using LAP.BLL.Abstract;
+﻿using CustomerService;
+using LAP.BLL.Abstract;
 using LAP.CORE.Enum;
 using LAP.ENTITIES;
 using LAP.ENTITIES.CustomModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace LAP.MVC.Controllers
 {
@@ -18,10 +21,19 @@ namespace LAP.MVC.Controllers
             _customerManager = customerManager;
         }
 
+
+        private async  Task<CustomerModel[]> Service()
+        {
+            CustomerServiceClient _customerService = new CustomerServiceClient();
+           return await _customerService.GetAllAsync();
+        }
+
+
         [HttpGet("liste")]
         [HttpGet("~/")]
-        public ActionResult Customer_List()
+        public async Task<ActionResult> Customer_List()
         {
+            await Service();
             return View();
         }
 
