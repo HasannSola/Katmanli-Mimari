@@ -24,7 +24,8 @@
 20-Docker<br/>
 21-Bundler ve Minifier ile cs ve js dosyaları<br/>
 22-Swagger ile Apileri test etme<br/>
-23-ORM(Ef,Dapper)
+23-ORM(Ef,Dapper)<br/>
+24-WCF servis ile datayı almak<br/>
 
 <br/>
  *** Asp.net Core en az Version="2.2.0" olmalı. öğrenmek içi CMD aç  "dotnet --version " komutunu yaz.<br/>

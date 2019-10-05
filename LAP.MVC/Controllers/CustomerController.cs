@@ -46,20 +46,19 @@ namespace LAP.MVC.Controllers
         }
 
         [HttpGet("list/data")]
-        public async Task<JsonResult> Customer_Data()
+        public async Task<JsonResult> Customer_Data(bool IsServis = false)
         {
             try
             {
-                bool IsServis = true;
                 List<Customer> customerList = new List<Customer>();
                 if (IsServis)
                 {
-                    customerList = (await CustomerService()).Where(d => d.InStatus == (int)StatusInfo.Active).ToList();
+                    customerList = (await CustomerService()).Where(d => d.InStatus == (int)StatusInfo.Active).OrderBy(c=>c.FlBalance).ToList();
                     //await UserService();
                 }
                 else
                 {
-                    customerList = _customerManager.GetAll().Where(d => d.InStatus == (int)StatusInfo.Active).ToList();
+                    customerList = _customerManager.GetAll().Where(d => d.InStatus == (int)StatusInfo.Active).OrderBy(c => c.StName).ToList();
                 }
 
 

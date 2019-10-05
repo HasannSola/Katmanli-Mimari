@@ -31,8 +31,11 @@
                 }
             });
         });
+
+        $("input:radio[name=wcfBllLayer]").on("change", function () { getAllList(); });
+
         function getAllList() {
-            coreSrv.getAll("/musteri/list/data").then(function (result) {
+            coreSrv.getAll("/musteri/list/data?IsServis=" + $("input:radio[name=wcfBllLayer]:checked").val()).then(function (result) {
                 $(function () {
                     var dataGrid = $("#gridCustomerList").dxDataGrid({
                         dataSource: result,
