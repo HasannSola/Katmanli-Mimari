@@ -11,11 +11,10 @@ using Xunit;
 
 namespace LAP.TEST.CustomerTests
 {
-  public class customers
+  public class Customers
     {
-        private readonly LapContext _context;
         private ICustomerManager _CustomerManager;
-        public customers()
+        public Customers()
         {
             _CustomerManager = new CustomerManager(new Repository<Customer>());
         }

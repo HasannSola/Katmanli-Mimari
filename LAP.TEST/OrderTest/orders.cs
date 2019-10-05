@@ -13,7 +13,6 @@ namespace LAP.TEST.OrderTest
 {
     public class orders
     {
-        private readonly LapContext _context;
         private IOrderManager _OrderManager;
         private ICustomerManager _CustomerManager;
         public orders()

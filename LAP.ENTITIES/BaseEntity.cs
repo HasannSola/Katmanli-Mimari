@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Runtime.Serialization;
 
 namespace LAP.ENTITIES
 {
-   public class BaseEntity: Entity
+    [DataContract]
+    public class BaseEntity : Entity
     {
         public DateTimeOffset? DtCreateTime { get; set; }
         public DateTimeOffset? DtUpdateTime { get; set; }
+        [DataMember]
         public int InStatus { get; set; }
     }
 }

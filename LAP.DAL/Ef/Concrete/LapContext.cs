@@ -14,6 +14,7 @@ namespace LAP.DAL.Concrete
 
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Order> Order { get; set; }
+        public DbSet<User> User { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +32,12 @@ namespace LAP.DAL.Concrete
             .HasMaxLength(2000);
             #endregion
 
+            #region
+            modelBuilder.Entity<User>().Property(p => p.StUserName)
+               .HasMaxLength(200);
+            modelBuilder.Entity<User>().Property(p => p.StEmail)
+                .HasMaxLength(100);
+            #endregion
             base.OnModelCreating(modelBuilder);
         }
     }

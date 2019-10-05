@@ -4,10 +4,12 @@ using LAP.CORE.Enum;
 using LAP.ENTITIES;
 using LAP.ENTITIES.CustomModels;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UserService;
 
 namespace LAP.MVC.Controllers
 {
@@ -22,37 +24,48 @@ namespace LAP.MVC.Controllers
         }
 
 
-        private async  Task<CustomerModel[]> Service()
+        private async Task<List<User>> UserService()
+        {
+            UserServiceClient _userService = new UserServiceClient();
+            var list = await _userService.GetAllAsync();
+            return JsonConvert.DeserializeObject<List<User>>(list);
+        }
+        private async Task<List<Customer>> CustomerService()
         {
             CustomerServiceClient _customerService = new CustomerServiceClient();
-           return await _customerService.GetAllAsync();
+            var list = await _customerService.GetAllAsync();
+            return JsonConvert.DeserializeObject<List<Customer>>(list);
         }
-
 
         [HttpGet("liste")]
         [HttpGet("~/")]
-        public async Task<ActionResult> Customer_List()
+        public ActionResult Customer_List()
         {
-            await Service();
+
             return View();
         }
 
         [HttpGet("list/data")]
-        public JsonResult Customer_Data()
+        public async Task<JsonResult> Customer_Data()
         {
             try
             {
-                var list = _customerManager.GetAll().Where(d => d.InStatus == (int)StatusInfo.Active).Select(_customer => new
+                bool IsServis = true;
+                List<Customer> customerList = new List<Customer>();
+                if (IsServis)
                 {
-                    InCustomerId = _customer.InCustomerId,
-                    StName = _customer.StName,
-                    FlBalance = _customer.FlBalance,
-                    StDescription = _customer.StDescription,
-                }).ToList();
+                    customerList = (await CustomerService()).Where(d => d.InStatus == (int)StatusInfo.Active).ToList();
+                    //await UserService();
+                }
+                else
+                {
+                    customerList = _customerManager.GetAll().Where(d => d.InStatus == (int)StatusInfo.Active).ToList();
+                }
+
 
                 return Json((object)new
                 {
-                    data = list,
+                    data = customerList,
                     message = "OK",
                     success = true,
                     redirectUrl = "",

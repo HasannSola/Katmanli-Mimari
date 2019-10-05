@@ -9,15 +9,7 @@
 
 namespace CustomerService
 {
-    using System.Runtime.Serialization;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CustomerModel", Namespace="http://schemas.datacontract.org/2004/07/LAP.SERVICES.Entities")]
-    public partial class CustomerModel : object
-    {
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="CustomerService.ICustomerService")]
@@ -25,7 +17,7 @@ namespace CustomerService
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICustomerService/GetAll", ReplyAction="http://tempuri.org/ICustomerService/GetAllResponse")]
-        System.Threading.Tasks.Task<CustomerService.CustomerModel[]> GetAllAsync();
+        System.Threading.Tasks.Task<string> GetAllAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
@@ -78,7 +70,7 @@ namespace CustomerService
         {
         }
         
-        public System.Threading.Tasks.Task<CustomerService.CustomerModel[]> GetAllAsync()
+        public System.Threading.Tasks.Task<string> GetAllAsync()
         {
             return base.Channel.GetAllAsync();
         }
@@ -111,7 +103,7 @@ namespace CustomerService
         {
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_ICustomerService))
             {
-                return new System.ServiceModel.EndpointAddress("http://localhost:62638/Concrete/CustomerService.svc");
+                return new System.ServiceModel.EndpointAddress("http://localhost:62638/Services/CustomerService.svc");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

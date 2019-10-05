@@ -77,6 +77,27 @@ namespace LAP.DAL.Migrations
                     b.ToTable("Order");
                 });
 
+            modelBuilder.Entity("LAP.ENTITIES.User", b =>
+                {
+                    b.Property<int>("InUserId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("InStatus");
+
+                    b.Property<string>("StDescription");
+
+                    b.Property<string>("StEmail")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("StUserName")
+                        .HasMaxLength(200);
+
+                    b.HasKey("InUserId");
+
+                    b.ToTable("User");
+                });
+
             modelBuilder.Entity("LAP.ENTITIES.Order", b =>
                 {
                     b.HasOne("LAP.ENTITIES.Customer", "Customer")
